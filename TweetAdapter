@@ -1,0 +1,53 @@
+package com.kreate.twitter;
+
+import com.kreate.twitter.R;
+import com.kreate.twitter.models.Tweet;
+import android.app.Activity;
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
+import java.util.List;
+
+public class TweetAdapter extends ArrayAdapter<Tweet>
+
+{
+    private List<Tweet> tweetslocal;
+    private LayoutInflater inflater;
+
+    public TweetAdapter(Activity activity, List<Tweet> tweets) {
+        super(activity, R.layout.row_tweet, tweets);
+        inflater = activity.getWindow().getLayoutInflater();
+        tweetslocal = tweets;
+
+    }
+
+    @Override
+    public int getCount() {
+        return tweetslocal.size();
+    }
+
+    @Override
+    public Tweet getItem(int position) {
+        return tweetslocal.get(position);
+    }
+
+    @Override
+    public long getItemId(int arg0) {
+        return arg0;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        View row = inflater.inflate(R.layout.row_tweet, parent, false);
+        TextView tweetTitle = (TextView) row.findViewById(R.id.tweetTitle);
+        TextView tweetBody = (TextView) row.findViewById(R.id.tweetBody);
+        Tweet tweet = tweetslocal.get(position);
+        tweetTitle.setText(tweet.getTitle());
+        tweetBody.setText(tweet.getBody());
+        return row;
+    }
+
+}
